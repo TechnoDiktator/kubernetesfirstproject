@@ -1,5 +1,5 @@
 # Dockerfile
-FROM almalinux:8  # Replaces CentOS 8 with AlmaLinux 8
+FROM almalinux:8
 
 LABEL maintainer="rastogitarang5@gmail.com"
 
