@@ -1,13 +1,13 @@
 # Dockerfile
+FROM almalinux:8  # Replaces CentOS 8 with AlmaLinux 8
 
-FROM centos:latest
 LABEL maintainer="rastogitarang5@gmail.com"
 
-RUN yum update -y && yum install -y \
+
+RUN dnf update -y && dnf install -y \
     httpd \
     zip \
     unzip --setopt=tsflags=nodocs
-
 
 ADD https://www.free-css.com/assets/files/free-css-templates/download/page254/photogenic.zip /var/www/html/
 WORKDIR /var/www/html/
