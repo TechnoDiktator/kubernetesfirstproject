@@ -1,11 +1,19 @@
 - hosts: k8s
   become: true
-  tasks: 
-     - name: delete old deployment
-       command: kubectl delete -f /home/ubuntu/Deployment.yml
-     - name: delete old service
-       command: kubectl delete -f /home/ubuntu/Service.yml
-     - name: create new deployment
-       command: kubectl apply -f /home/ubuntu/Deployment.yml
-     - name: create new service
-       command: kubectl apply -f /home/ubuntu/Service.yml
+  become_user: ubuntu
+  tasks:
+  
+    - name: Set KUBECONFIG for Ansible
+      shell: export KUBECONFIG=/home/ubuntu/.kube/config
+
+    - name: Delete old deployment (if exists)
+      command: kubectl delete -f /home/ubuntu/Deployment.yml --ignore-not-found
+
+    - name: Delete old service (if exists)
+      command: kubectl delete -f /home/ubuntu/Service.yml --ignore-not-found
+
+    - name: Apply new deployment
+      command: kubectl apply -f /home/ubuntu/Deployment.yml
+
+    - name: Apply new service
+      command: kubectl apply -f /home/ubuntu/Service.yml
